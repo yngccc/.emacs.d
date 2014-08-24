@@ -107,11 +107,11 @@
 
 (add-hook 'c++-mode-hook (lambda ()
 			   (setq flycheck-clang-language-standard "c++1y")
-			   (setq flycheck-clang-include-path '("/usr/local/include/freetype2"))))
+			   (setq flycheck-clang-include-path '("/usr/include/freetype2" "/usr/local/include/freetype2"))))
 
 (add-hook 'c-mode-hook (lambda () 
 			 (setq flycheck-clang-language-standard "c11")
-			 (setq flycheck-clang-include-path '("/usr/local/include/freetype2"))))
+			 (setq flycheck-clang-include-path '("/usr/include/freetype2" "/usr/local/include/freetype2"))))
 
 ;; magit
 (global-set-key (kbd "A-i") 'magit-status)
