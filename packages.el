@@ -34,12 +34,12 @@
 			  'swift-mode)
 (package-initialize)
 			  
-;; paths
-(add-to-list 'exec-path "/usr/local/bin")
-(exec-path-from-shell-initialize)
-
 ;; company
 (global-company-mode)
+(setq company-selection-wrap-around t)
+
+(define-key company-mode-map (kbd "M-m M-c") 'company-manual-begin)
+
 (define-key company-active-map (kbd "<tab>") 'company-select-next)
 (define-key company-active-map (kbd "M-s") 'company-select-next)
 (define-key company-active-map (kbd "M-w") 'company-select-previous)
@@ -50,6 +50,10 @@
 (define-key company-search-map (kbd "M-f") 'company-search-repeat-forward)
 (define-key company-search-map (kbd "M-r") 'company-search-repeat-backward)
 (define-key company-search-map (kbd "M-g") 'company-search-abort)
+
+;; paths
+(add-to-list 'exec-path "/usr/local/bin")
+(exec-path-from-shell-initialize)
 
 ;; pretty-lambda
 (defadvice pretty-lambda-mode (around enable-pretty-lambda-for)
