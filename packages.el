@@ -12,7 +12,7 @@
 ;; make sure to have downloaded archive description.
 (or (file-exists-p "~/.emacs.d/elpa") (package-refresh-contents))
 
-(ensure-package-installed 'auto-complete
+(ensure-package-installed 'company
 			  'cmake-mode
 			  'exec-path-from-shell
 			  'flx 'flx-ido
@@ -38,22 +38,18 @@
 (add-to-list 'exec-path "/usr/local/bin")
 (exec-path-from-shell-initialize)
 
-;; auto-complete
-(require 'auto-complete-config)
-(ac-config-default)
-(setq ac-quick-help-delay 0.2)
+;; company
+(global-company-mode)
+(define-key company-active-map (kbd "<tab>") 'company-select-next)
+(define-key company-active-map (kbd "M-s") 'company-select-next)
+(define-key company-active-map (kbd "M-w") 'company-select-previous)
 
-(define-key ac-completing-map (kbd "M-w") 'ac-previous)
-(define-key ac-completing-map (kbd "M-s") 'ac-next)
-(define-key ac-completing-map (kbd "M-S") 'ac-quick-help-scroll-down)
-(define-key ac-completing-map (kbd "M-W") 'ac-quick-help-scroll-up)
+(define-key company-active-map (kbd "M-d") 'company-show-doc-buffer)
 
-(defun ac-show-symbol-doc ()
-  (interactive)
-  (let ((symbol (symbol-at-point)))
-    (when symbol (popup-tip (ac-symbol-documentation symbol)))))
-
-(define-key emacs-lisp-mode-map (kbd "M-m M-d") 'ac-show-symbol-doc)
+(define-key company-active-map (kbd "M-f") 'company-search-candidates)
+(define-key company-search-map (kbd "M-f") 'company-search-repeat-forward)
+(define-key company-search-map (kbd "M-r") 'company-search-repeat-backward)
+(define-key company-search-map (kbd "M-g") 'company-search-abort)
 
 ;; pretty-lambda
 (defadvice pretty-lambda-mode (around enable-pretty-lambda-for)
