@@ -1,3 +1,7 @@
+(let ((minver 23))
+  (unless (>= emacs-major-version minver)
+    (error "Emacs version 23 or higher required" minver)))
+
 ;; set meta/alt key on mac/linux
 (cond ((eq system-type 'darwin)
        (progn (setq mac-command-modifier 'meta)
