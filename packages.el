@@ -40,7 +40,7 @@
 
 (define-key company-mode-map (kbd "M-m M-c") 'company-manual-begin)
 
-(define-key company-active-map (kbd "<tab>") 'company-select-next)
+(define-key company-active-map (kbd "<tab>") 'company-complete)
 (define-key company-active-map (kbd "M-s") 'company-select-next)
 (define-key company-active-map (kbd "M-w") 'company-select-previous)
 
