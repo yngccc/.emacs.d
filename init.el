@@ -90,9 +90,6 @@
 (global-set-key (kbd "M-;") 'switch-to-prev-buffer)
 (global-set-key (kbd "M-'") 'switch-to-next-buffer)
 
-(global-set-key (kbd "M-h") 'ff-find-other-file)
-(global-set-key (kbd "A-h") (lambda () (interactive) (ff-find-other-file t)))
-
 (global-set-key (kbd "A-p") 'rgrep)
 (global-set-key (kbd "M-u") 'universal-argument)
 
