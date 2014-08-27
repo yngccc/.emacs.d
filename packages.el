@@ -77,12 +77,10 @@
 
 ;; projectile
 (projectile-global-mode)
-
 (define-key projectile-mode-map (kbd "A-t") 'projectile-find-file)
 ;(define-key projectile-mode-map (kbd "M-h") 'projectile-find-other-file)
-
-(push '("cc" . (".hh")) projectile-other-file-alist)
-(push '("hh" . (".cc")) projectile-other-file-alist)
+;(push '("cc" . (".hh")) projectile-other-file-alist)
+;(push '("hh" . (".cc")) projectile-other-file-alist)
 
 ;; multiple cursors
 (require 'multiple-cursors)
