@@ -236,6 +236,8 @@
 			      
 ;; compilation mode
 (global-set-key (kbd "M-p") 'compile)
+(if (eq system-type 'gnu/linux)
+    (global-set-key (kbd "M-P") 'compile))
 (setq compile-command "ninja")
 
 (defun compilation-hook ()
