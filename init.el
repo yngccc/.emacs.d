@@ -1,6 +1,6 @@
-(let ((minver 23))
+(let ((minver 24))
   (unless (>= emacs-major-version minver)
-    (error "Emacs version 23 or higher required" minver)))
+    (error "Emacs version 24 or higher required" minver)))
 
 ;; set meta/alt key on mac/linux
 (cond ((eq system-type 'darwin)

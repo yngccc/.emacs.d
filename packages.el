@@ -78,9 +78,16 @@
 ;; projectile
 (projectile-global-mode)
 (define-key projectile-mode-map (kbd "A-t") 'projectile-find-file)
-;(define-key projectile-mode-map (kbd "M-h") 'projectile-find-other-file)
-;(push '("cc" . (".hh")) projectile-other-file-alist)
-;(push '("hh" . (".cc")) projectile-other-file-alist)
+(define-key projectile-mode-map (kbd "M-h") 'projectile-find-other-file)
+(define-key projectile-mode-map (kbd "A-h") 'projectile-find-other-file-other-window)
+
+(defun filter (pred lst)
+  (-filter pred lst))
+
+(push '("cc" . (".hh")) projectile-other-file-alist)
+(push '("hh" . (".cc")) projectile-other-file-alist)
+(push '("vert" . (".frag")) projectile-other-file-alist)
+(push '("frag" . (".vert")) projectile-other-file-alist)
 
 ;; multiple cursors
 (require 'multiple-cursors)
