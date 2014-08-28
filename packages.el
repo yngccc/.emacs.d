@@ -86,6 +86,8 @@
 
 (push '("cc" . (".hh")) projectile-other-file-alist)
 (push '("hh" . (".cc")) projectile-other-file-alist)
+(push '("vs" . (".fs")) projectile-other-file-alist)
+(push '("fs" . (".vs")) projectile-other-file-alist)
 (push '("vert" . (".frag")) projectile-other-file-alist)
 (push '("frag" . (".vert")) projectile-other-file-alist)
 
