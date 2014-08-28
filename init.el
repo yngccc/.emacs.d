@@ -292,7 +292,7 @@
 (setq initial-major-mode 'emacs-lisp-mode)
 
 ;; erc
-(setq erc-hide-list '("JOIN" "PART" "QUIT"))
+;; (setq erc-hide-list '("JOIN" "PART" "QUIT"))
 
 ;; doc-view
 (setq doc-view-ghostscript-program "/usr/local/bin/gs")
