@@ -31,7 +31,9 @@
 			  'yasnippet
 			  'glsl-mode
 			  'haskell-mode
-			  'swift-mode)
+			  'swift-mode
+			  'go-mode
+			  'company-go)
 (package-initialize)
 			  
 ;; company
@@ -81,24 +83,23 @@
 (define-key projectile-mode-map (kbd "M-h") 'projectile-find-other-file)
 (define-key projectile-mode-map (kbd "A-h") 'projectile-find-other-file-other-window)
 
-(defun filter (pred lst)
-  (-filter pred lst))
-
-(push '("cc" . (".hh")) projectile-other-file-alist)
-(push '("hh" . (".cc")) projectile-other-file-alist)
-(push '("vs" . (".fs")) projectile-other-file-alist)
-(push '("fs" . (".vs")) projectile-other-file-alist)
-(push '("vert" . (".frag")) projectile-other-file-alist)
-(push '("frag" . (".vert")) projectile-other-file-alist)
+(push '("vs" . ("fs")) projectile-other-file-alist)
+(push '("fs" . ("vs")) projectile-other-file-alist)
 
 ;; multiple cursors
 (require 'multiple-cursors)
 (define-key mc/keymap (kbd "M-g") 'mc/keyboard-quit)
 (global-set-key (kbd "M-\\") 'mc/mark-all-like-this)
+(global-set-key (kbd "A-\\") 'mc/edit-lines)
+
 (global-set-key (kbd "M-\[") 'mc/mark-previous-like-this)
 (global-set-key (kbd "M-\]") 'mc/mark-next-like-this)
-(global-set-key (kbd "M-\{") 'mc/unmark-previous-like-this)
-(global-set-key (kbd "M-\}") 'mc/unmark-next-like-this)
+
+(global-set-key (kbd "M-\{") 'mc/skip-to-previous-like-this)
+(global-set-key (kbd "M-\}") 'mc/skip-to-next-like-this)
+
+(global-set-key (kbd "A-\[") 'mc/unmark-previous-like-this)
+(global-set-key (kbd "A-\]") 'mc/unmark-next-like-this)
 
 ;; yasnippet
 (require 'yasnippet)
@@ -187,6 +188,23 @@
 (define-key rtags-mode-map (kbd "M-RET") 'rtags-select-other-window)
 (define-key rtags-mode-map (kbd "M-o") 'other-window)
 (rtags-start-process-maybe)
+
+;; go mode
+(add-hook 'go-mode-hook
+          (lambda ()
+            (add-hook 'before-save-hook 'gofmt-before-save)
+            (setq tab-width 2)
+            (setq indent-tabs-mode 1)))
+(add-hook 'go-mode-hook
+	  (lambda ()
+	    (local-set-key (kbd "M-.") 'godef-jump)
+	    (local-set-key (kbd "M->") 'godef-jump-other-window)
+	    (local-set-key (kbd "M-m M-d") 'godef-describe)))
+
+(add-hook 'go-mode-hook 
+	  (lambda ()
+	    (set (make-local-variable 'company-backends) '(company-go))
+	    (company-mode)))
 
 ;; glsl mode
 (autoload 'glsl-mode "glsl-mode" nil t)
