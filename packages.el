@@ -45,6 +45,8 @@
 (define-key company-active-map (kbd "<tab>") 'company-complete)
 (define-key company-active-map (kbd "M-s") 'company-select-next)
 (define-key company-active-map (kbd "M-w") 'company-select-previous)
+(define-key company-active-map (kbd "M-S") 'company-select-next)
+(define-key company-active-map (kbd "M-W") 'company-select-previous)
 
 (define-key company-active-map (kbd "M-d") 'company-show-doc-buffer)
 
@@ -173,12 +175,47 @@
 (require 'rtags)
 (setq rtags-path "~/lib/rtags")
 (setq rtags-jump-to-first-match nil)
-(define-key c-mode-map (kbd "M-.") 'rtags-find-symbol-at-point)
+
+(defun rtags-handle-results-buffer-other-window (&optional noautojump)
+  (setq rtags-last-request-not-indexed nil)
+  (rtags-reset-bookmarks)
+  (cond ((= (point-min) (point-max))
+         (message "RTags: No results") nil)
+        ((= (count-lines (point-min) (point-max)) 1)
+         (let ((string (buffer-string)))
+           (if (rtags-not-indexed/connected-message-p string)
+               (progn
+                 (setq rtags-last-request-not-indexed t)
+                 nil)
+             (bury-buffer)
+             (rtags-goto-location string nil t))))
+        (t
+         (switch-to-buffer-other-window rtags-buffer-name)
+         (shrink-window-if-larger-than-buffer)
+         (goto-char (point-max))
+         (if (= (point-at-bol) (point-max))
+             (delete-char -1))
+         (rtags-init-bookmarks)
+         (rtags-mode)
+         (when (and rtags-jump-to-first-match (not noautojump))
+           (rtags-select-other-window)))))
+
+(defun rtags-find-symbol-at-point-other-window (&optional prefix)
+  (interactive "P")
+  (rtags-location-stack-push)
+  (let ((arg (rtags-current-location))
+        (fn (buffer-file-name)))
+    (rtags-reparse-file-if-needed)
+    (with-current-buffer (rtags-get-buffer)
+      (rtags-call-rc :path fn :path-filter prefix "-f" arg)
+      (rtags-handle-results-buffer-other-window))))
+
+(define-key c-mode-map (kbd "M-.") 'rtags-find-symbol-at-point-other-window)
 (define-key c-mode-map (kbd "M-,") 'rtags-find-references-at-point)
 (define-key c-mode-map (kbd "M->") 'rtags-find-symbol)
 (define-key c-mode-map (kbd "M-<") 'rtags-find-references)
 (define-key c-mode-map (kbd "M-m M-r") 'rtags-rename-symbol)
-(define-key c++-mode-map (kbd "M-.") 'rtags-find-symbol-at-point)
+(define-key c++-mode-map (kbd "M-.") 'rtags-find-symbol-at-point-other-window)
 (define-key c++-mode-map (kbd "M-,") 'rtags-find-references-at-point)
 (define-key c++-mode-map (kbd "M->") 'rtags-find-symbol)
 (define-key c++-mode-map (kbd "M-<") 'rtags-find-references)
@@ -195,6 +232,7 @@
             (add-hook 'before-save-hook 'gofmt-before-save)
             (setq tab-width 2)
             (setq indent-tabs-mode 1)))
+
 (add-hook 'go-mode-hook
 	  (lambda ()
 	    (local-set-key (kbd "M-.") 'godef-jump)
@@ -203,8 +241,7 @@
 
 (add-hook 'go-mode-hook 
 	  (lambda ()
-	    (set (make-local-variable 'company-backends) '(company-go))
-	    (company-mode)))
+	    (set (make-local-variable 'company-backends) '(company-go))))
 
 ;; glsl mode
 (autoload 'glsl-mode "glsl-mode" nil t)
