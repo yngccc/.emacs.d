@@ -215,20 +215,20 @@
       (rtags-call-rc :path fn :path-filter prefix "-f" arg)
       (rtags-handle-results-buffer-other-window))))
 
-(define-key c-mode-map (kbd "M-.") 'rtags-find-symbol-at-point-other-window)
-(define-key c-mode-map (kbd "M-,") 'rtags-find-references-at-point)
-(define-key c-mode-map (kbd "M->") 'rtags-find-symbol)
-(define-key c-mode-map (kbd "M-<") 'rtags-find-references)
-(define-key c-mode-map (kbd "M-m M-r") 'rtags-rename-symbol)
-(define-key c++-mode-map (kbd "M-.") 'rtags-find-symbol-at-point-other-window)
-(define-key c++-mode-map (kbd "M-,") 'rtags-find-references-at-point)
-(define-key c++-mode-map (kbd "M->") 'rtags-find-symbol)
-(define-key c++-mode-map (kbd "M-<") 'rtags-find-references)
-(define-key c++-mode-map (kbd "M-m M-r") 'rtags-rename-symbol)
+(defun rtag-hook ()
+    (local-set-key (kbd "M-.") 'rtags-find-symbol-at-point)
+    (local-set-key (kbd "M->") 'rtags-find-symbol-at-point-other-window)
+    (local-set-key (kbd "M-,") 'rtags-find-references-at-point)
+    (local-set-key (kbd "M-m M-r") 'rtags-rename-symbol))
+
+(add-hook 'c-mode-hook 'rtag-hook)
+(add-hook 'c++-mode-hook 'rtag-hook)
+    
 (define-key rtags-mode-map (kbd "ENTER") 'rtags-select)
 (define-key rtags-mode-map (kbd "RET") 'rtags-select)
 (define-key rtags-mode-map (kbd "M-RET") 'rtags-select-other-window)
 (define-key rtags-mode-map (kbd "M-o") 'other-window)
+
 (rtags-start-process-maybe)
 
 ;; go mode
