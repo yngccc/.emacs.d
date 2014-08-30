@@ -15,6 +15,7 @@
 (ensure-package-installed 'company
 			  'cmake-mode
 			  'exec-path-from-shell
+			  'expand-region
 			  'flx 'flx-ido
 			  'flycheck
 			  'geiser
@@ -55,9 +56,13 @@
 (define-key company-search-map (kbd "M-r") 'company-search-repeat-backward)
 (define-key company-search-map (kbd "M-g") 'company-search-abort)
 
-;; paths
+;; environment variable
 (add-to-list 'exec-path "/usr/local/bin")
 (exec-path-from-shell-initialize)
+
+;; expand region
+(global-set-key (kbd "M-+") 'er/expand-region)
+(global-set-key (kbd "M-_") 'er/contract-region)
 
 ;; pretty-lambda
 (defadvice pretty-lambda-mode (around enable-pretty-lambda-for)
