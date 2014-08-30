@@ -10,7 +10,7 @@
 	  packages))
 
 ;; make sure to have downloaded archive description.
-(or (file-exists-p "~/.emacs.d/elpa") (package-refresh-contents))
+(or (file-exists-p package-user-dir) (package-refresh-contents))
 
 (ensure-package-installed 'company
 			  'cmake-mode
