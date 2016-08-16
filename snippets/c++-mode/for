@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: for
+# key: for
+# --
+for (uint32 ${1:index} = 0; $1 < ${2:counter}; $1 += 1) {
+
+}

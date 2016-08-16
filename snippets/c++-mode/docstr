@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: documentation string
+# key: docstr
+# --
+/**
+ *  \brief ${1: function description}
+ *  \param ${2: parameter description}
+ *  \return ${3: return value description}
+ */

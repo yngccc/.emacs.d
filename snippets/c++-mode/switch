@@ -1,0 +1,18 @@
+# -*- mode: snippet -*-
+# name: switch
+# key: switch
+# --
+switch (${1:value}) {
+  case ${2:a}: {
+    $5
+  } break;
+  case ${3:b}: {
+    $6
+  } break;
+  case ${4:c}: {
+    $7
+  } break;
+  default: {
+    $8
+  }
+}
