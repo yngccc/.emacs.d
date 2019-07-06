@@ -17,6 +17,7 @@
 
 (prefer-coding-system 'utf-8)
 
+(setq create-lockfiles nil)
 (global-auto-revert-mode)
 (setq inhibit-startup-screen t)
 ;; (desktop-save-mode)
@@ -233,23 +234,6 @@
 ; 	(setq web-mode-code-indent-offset 2)
 ; 	(define-key web-mode-map (kbd "C-j") 'web-mode-fold-or-unfold)))
 
-(when (require 'lsp-mode nil 'noerror)
-	(setq lsp-auto-guess-root t)
-	(add-hook 'c++-mode-hook #'lsp))
-
-(when (require 'lsp-ui nil 'noerror)
-	(setq lsp-ui-doc-enable nil)
-	(setq lsp-ui-imenu-enable nil)
-	(setq lsp-ui-sideline-enable nil)
-	(define-key lsp-ui-mode-map [remap xref-find-definitions] #'lsp-ui-peek-find-definitions)
-	(define-key lsp-ui-mode-map [remap xref-find-references] #'lsp-ui-peek-find-references)
-	(define-key lsp-ui-peek-mode-map (kbd "C-s") 'lsp-ui-peek--select-next)
-	(define-key lsp-ui-peek-mode-map (kbd "C-w") 'lsp-ui-peek--select-prev)
-	(add-hook 'lsp-mode-hook 'lsp-ui-mode))
-
-(when (require 'company-lsp nil 'noerror)
-	(push 'company-lsp company-backends))
-
 (when (require 'google-this nil 'noerror))
 
 (when (require 'projectile nil 'noerror)
@@ -267,7 +251,7 @@
  '(menu-bar-mode nil)
  '(package-selected-packages
 	 (quote
-		(idomenu ido-vertical-mode flx-ido yasnippet multiple-cursors expand-region magit flycheck projectile lsp-mode lsp-ui company-lsp company go-mode company-go google-this web-mode solarized-theme zenburn-theme)))
+		(idomenu ido-vertical-mode flx-ido yasnippet multiple-cursors expand-region magit flycheck projectile company go-mode company-go google-this web-mode solarized-theme zenburn-theme)))
  '(scroll-bar-mode nil)
  '(tool-bar-mode nil))
 (custom-set-faces

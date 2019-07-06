@@ -6,6 +6,7 @@
 				c-electric-lt-gt
 				c-indent-line-or-region
 				cua-paste
+				end-of-buffer
 				))
 
 (setq mc/cmds-to-run-once
