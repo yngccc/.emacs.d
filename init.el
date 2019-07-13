@@ -1,3 +1,5 @@
+(setq warning-minimum-level :emergency)
+
 (require 'package)
 (add-to-list 'package-archives (cons "melpa" "http://melpa.org/packages/") t)
 (package-initialize)
