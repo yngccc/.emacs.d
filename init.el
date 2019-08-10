@@ -22,7 +22,7 @@
 (setq create-lockfiles nil)
 (global-auto-revert-mode)
 (setq inhibit-startup-screen t)
-;; (desktop-save-mode)
+(desktop-save-mode)
 ;; (show-paren-mode)
 ;; (global-hl-line-mode)
 
