@@ -77,8 +77,8 @@
 
 (global-set-key (kbd "C-q") (lambda () (interactive) (if (bolp) (back-to-indentation) (beginning-of-line))))
 (global-set-key (kbd "C-e") 'end-of-line)
-(global-set-key (kbd "C-S-q") 'beginning-of-buffer)
-(global-set-key (kbd "C-S-e") 'end-of-buffer)
+(global-set-key (kbd "M-q") 'beginning-of-buffer)
+(global-set-key (kbd "M-e") 'end-of-buffer)
 (global-set-key (kbd "C-S-k") (lambda () (interactive) (kill-line 0)))
 
 (global-set-key (kbd "C-S-l") 'goto-line)
@@ -178,9 +178,6 @@
 
 (setq js-indent-level 2)
 
-(when (require 'expand-region nil 'noerror)
-	(global-set-key (kbd "M-e") 'er/expand-region))
-
 (when (require 'company nil 'noerror)
 	(global-company-mode)
 	(define-key company-active-map (kbd "<tab>") 'company-complete)
@@ -229,12 +226,11 @@
 							(set (make-local-variable 'company-backends) '(company-go))
 							(company-mode))))
 
-; (add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))
-; (add-hook 'web-mode-hook (lambda ()
-; 	(setq web-mode-markup-indent-offset 2)
-; 	(setq web-mode-css-indent-offset 2)
-; 	(setq web-mode-code-indent-offset 2)
-; 	(define-key web-mode-map (kbd "C-j") 'web-mode-fold-or-unfold)))
+; (add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode)) (add-hook
+; 'web-mode-hook (lambda () (setq web-mode-markup-indent-offset 2)
+; (setq web-mode-css-indent-offset 2) (setq
+; web-mode-code-indent-offset 2) (define-key web-mode-map (kbd "C-j")
+; 'web-mode-fold-or-unfold)))
 
 (when (require 'google-this nil 'noerror))
 
@@ -248,12 +244,10 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
-	 (quote
-		("d057f0430ba54f813a5d60c1d18f28cf97d271fd35a36be478e20924ea9451bd" "ec5f697561eaf87b1d3b087dd28e61a2fc9860e4c862ea8e6b0b77bd4967d0ba" "190a9882bef28d7e944aa610aa68fe1ee34ecea6127239178c7ac848754992df" "e11569fd7e31321a33358ee4b232c2d3cf05caccd90f896e1df6cab228191109" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" default)))
+	 '("fee7287586b17efbfda432f05539b58e86e059e78006ce9237b8732fde991b4c" "70cfdd2e7beaf492d84dfd5f1955ca358afb0a279df6bd03240c2ce74a578e9e" default))
  '(menu-bar-mode nil)
  '(package-selected-packages
-	 (quote
-		(idomenu ido-vertical-mode flx-ido yasnippet multiple-cursors expand-region magit flycheck projectile company go-mode company-go google-this web-mode solarized-theme zenburn-theme)))
+	 '(idomenu ido-vertical-mode flx-ido yasnippet multiple-cursors expand-region magit flycheck projectile company go-mode company-go google-this web-mode solarized-theme zenburn-theme))
  '(scroll-bar-mode nil)
  '(tool-bar-mode nil))
 (custom-set-faces
