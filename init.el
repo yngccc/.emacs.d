@@ -72,14 +72,21 @@
 (global-set-key (kbd "C-d") 'forward-word)
 (global-set-key (kbd "C-S-w") (lambda () (interactive) (previous-line 6)))
 (global-set-key (kbd "C-S-s") (lambda () (interactive) (next-line 6)))
+(global-set-key (kbd "M-w") (lambda () (interactive) (previous-line 6)))
+(global-set-key (kbd "M-s") (lambda () (interactive) (next-line 6)))
 (global-set-key (kbd "C-S-a") 'backward-char)
 (global-set-key (kbd "C-S-d") 'forward-char)
+(global-set-key (kbd "M-a") 'backward-char)
+(global-set-key (kbd "M-d") 'forward-char)
 
 (global-set-key (kbd "C-q") (lambda () (interactive) (if (bolp) (back-to-indentation) (beginning-of-line))))
 (global-set-key (kbd "C-e") 'end-of-line)
+(global-set-key (kbd "C-S-k") (lambda () (interactive) (kill-line 0)))
+
+(global-set-key (kbd "C-S-q") 'beginning-of-buffer)
+(global-set-key (kbd "C-S-e") 'end-of-buffer)
 (global-set-key (kbd "M-q") 'beginning-of-buffer)
 (global-set-key (kbd "M-e") 'end-of-buffer)
-(global-set-key (kbd "C-S-k") (lambda () (interactive) (kill-line 0)))
 
 (global-set-key (kbd "C-S-l") 'goto-line)
 
@@ -118,6 +125,9 @@
 (global-set-key (kbd "C-n") 'save-buffer)
 (global-set-key (kbd "C-1") 'eval-expression)
 (global-set-key (kbd "C-!") 'shell-command)
+
+(define-key shell-mode-map (kbd "C-:") 'comint-previous-input)
+(define-key shell-mode-map (kbd "C-\"") 'comint-next-input)
 
 (when (eq system-type 'windows-nt)
 	(grep-compute-defaults)
@@ -247,7 +257,7 @@
 	 '("fee7287586b17efbfda432f05539b58e86e059e78006ce9237b8732fde991b4c" "70cfdd2e7beaf492d84dfd5f1955ca358afb0a279df6bd03240c2ce74a578e9e" default))
  '(menu-bar-mode nil)
  '(package-selected-packages
-	 '(idomenu ido-vertical-mode flx-ido yasnippet multiple-cursors expand-region magit flycheck projectile company go-mode company-go google-this web-mode solarized-theme zenburn-theme))
+	 '(rust-mode idomenu ido-vertical-mode flx-ido yasnippet multiple-cursors expand-region magit flycheck projectile company go-mode company-go google-this web-mode solarized-theme zenburn-theme))
  '(scroll-bar-mode nil)
  '(tool-bar-mode nil))
 (custom-set-faces
@@ -256,3 +266,4 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(default ((t (:family "Consolas" :foundry "outline" :slant normal :weight normal :height 108 :width normal)))))
+ 
