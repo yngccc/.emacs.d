@@ -126,6 +126,7 @@
 (global-set-key (kbd "C-1") 'eval-expression)
 (global-set-key (kbd "C-!") 'shell-command)
 
+(require 'shell)
 (define-key shell-mode-map (kbd "C-:") 'comint-previous-input)
 (define-key shell-mode-map (kbd "C-\"") 'comint-next-input)
 
