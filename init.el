@@ -98,8 +98,8 @@
 (global-set-key (kbd "C-b") 'switch-to-buffer)
 (global-set-key (kbd "C-x C-b") 'list-buffers)
 (global-set-key (kbd "C-S-b") (lambda () (interactive) (kill-buffer (current-buffer))))
-(global-set-key (kbd "C-;") 'switch-to-prev-buffer)
-(global-set-key (kbd "C-'") 'switch-to-next-buffer)
+(global-set-key (kbd "C-:") 'switch-to-prev-buffer)
+(global-set-key (kbd "C-\"") 'switch-to-next-buffer)
 
 (global-set-key (kbd "C-f") 'isearch-forward)
 (global-set-key (kbd "C-r") 'isearch-backward)
@@ -121,6 +121,39 @@
 (add-hook 'xref--xref-buffer-mode-hook (lambda ()
 	(define-key xref--xref-buffer-mode-map (kbd "C-o") 'other-window)
 	(define-key xref--xref-buffer-mode-map (kbd "<tab>") 'xref-next-line)))
+
+(defun marker-is-point-p (marker)
+  "test if marker is current point"
+  (and (eq (marker-buffer marker) (current-buffer))
+       (= (marker-position marker) (point))))
+
+(defun push-mark-maybe () 
+  "push mark onto `global-mark-ring' if mark head or tail is not current location"
+  (if (not global-mark-ring) (error "global-mark-ring empty")
+    (unless (or (marker-is-point-p (car global-mark-ring))
+                (marker-is-point-p (car (reverse global-mark-ring))))
+      (push-mark))))
+
+(defun backward-global-mark () 
+  "use `pop-global-mark', pushing current point if not on ring."
+  (interactive)
+  (push-mark-maybe)
+  (when (marker-is-point-p (car global-mark-ring))
+    (call-interactively 'pop-global-mark))
+  (call-interactively 'pop-global-mark))
+
+(defun forward-global-mark ()
+  "hack `pop-global-mark' to go in reverse, pushing current point if not on ring."
+  (interactive)
+  (push-mark-maybe)
+  (setq global-mark-ring (nreverse global-mark-ring))
+  (when (marker-is-point-p (car global-mark-ring))
+    (call-interactively 'pop-global-mark))
+  (call-interactively 'pop-global-mark)
+  (setq global-mark-ring (nreverse global-mark-ring)))
+
+(global-set-key (kbd "C-;") (quote backward-global-mark))
+(global-set-key (kbd "C-'") (quote forward-global-mark))
 
 (global-set-key (kbd "C-n") 'save-buffer)
 (global-set-key (kbd "C-1") 'eval-expression)
@@ -245,10 +278,6 @@
 
 (when (require 'google-this nil 'noerror))
 
-(when (require 'projectile nil 'noerror)
-	(projectile-mode)
-	(global-set-key (kbd "C-S-t") 'projectile-find-file))
-
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -258,7 +287,7 @@
 	 '("fee7287586b17efbfda432f05539b58e86e059e78006ce9237b8732fde991b4c" "70cfdd2e7beaf492d84dfd5f1955ca358afb0a279df6bd03240c2ce74a578e9e" default))
  '(menu-bar-mode nil)
  '(package-selected-packages
-	 '(rust-mode idomenu ido-vertical-mode flx-ido yasnippet multiple-cursors expand-region magit flycheck projectile company go-mode company-go google-this web-mode solarized-theme zenburn-theme))
+	 '(rustic lsp-mode idomenu ido-vertical-mode flx-ido yasnippet multiple-cursors expand-region magit flycheck company google-this solarized-theme zenburn-theme))
  '(scroll-bar-mode nil)
  '(tool-bar-mode nil))
 (custom-set-faces
