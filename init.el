@@ -202,10 +202,8 @@
 (setq-default c-basic-offset 2)
 (c-set-offset 'brace-list-intro '+)
 (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
-(add-hook 'c-mode-common-hook
-					(lambda ()
-						(hs-minor-mode)
-						(subword-mode)))
+(add-hook 'c-mode-common-hook (lambda () (hs-minor-mode) (subword-mode)))
+(add-hook 'c-mode-common-hook (lambda () (font-lock-mode 1) (setq-local font-lock-keywords nil)))
 
 (defadvice c-lineup-arglist (around my activate)
   "Improve indentation of continued C++11 lambda function opened as argument."
